@@ -12,11 +12,20 @@ class App extends Component {
     query: '&t=',
     movieTitle: '',
     searchURL: '',
-    movieInfo: {}
+    movieInfo: {},
+    toggle: false
   }
 
   componentDidMount() {
-    console.log('component did mount');
+    console.log('Mounted App.js')
+    fetch('http://www.omdbapi.com/?apikey=3da9fc30&t=Toy%20Story%202')
+      .then(response => response.json()) // returns second Promise
+      .then(data => this.setState({movieInfo: data}))
+      .catch(error => console.error(error))
+  }
+
+  componentDidUpdate() {
+    console.log('we did an update, do things here')
   }
 
   handleChange = e => {
@@ -42,6 +51,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('App', this.state.movieInfo)
     return (
       // React.Fragment
       <>
@@ -57,7 +67,12 @@ class App extends Component {
         </form>
         <a href={this.state.searchURL}>{this.state.searchURL}</a>
 
-        <MovieInfo movieInfo={this.state.movieInfo} />
+        <button onClick={() => this.setState({toggle: !this.state.toggle})}>TOGGLE</button>
+        
+        {
+          this.state.toggle ? <MovieInfo movieInfo={this.state.movieInfo} /> : null
+        }
+        
       </>
     );
   }

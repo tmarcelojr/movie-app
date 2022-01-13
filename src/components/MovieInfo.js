@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 
 class MovieInfo extends Component {
+
+    componentDidMount() {
+        console.log('movieinfo mounted');
+    }
+
+    componentWillUnmount() {
+        console.log('movieinfo unmounted');
+    }
+
     render() {
-        console.log('MovieInfo', this.props)
+        // console.log('MovieInfo', this.props)
         return (
             <div>
                 <h1>Title: {this.props.movieInfo.Title}</h1>
